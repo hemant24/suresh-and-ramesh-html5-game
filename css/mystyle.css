@@ -1,0 +1,35 @@
+.mute{
+			background:url('../images/mute2.png');
+			background-position:10px 0px;
+		}
+		.play{
+			background:url('../images/mute2.png');
+			background-position:60px 0px;
+		}
+		.loading{
+			position:absolute; left: 0 ;
+			right :0 ;
+			z-index:1000;
+			background:url('../images/cover.png') #7DFFF7 no-repeat
+		}
+		#playbt {
+			position:absolute; 
+		}
+		#loadImg {
+			background:url('../images/ajax-loader.gif') ; width:55px ;height:54px
+		}
+		#playBtnContainer{
+			display:none;
+		}
+		#playBtn{
+			background-color:red; color:white; padding:4px 20px; font-size:20px;cursor:pointer
+		}
+		#timeCanvas{
+			background:url('../images/bomb.png'); margin-right: 40px; float:left;
+		}
+		#testCanvas{
+			background:url('../images/waves.jpg');float:left;
+		}
+		#music{
+			width:50px; height:45px; float:left; cursor:pointer
+		}

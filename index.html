@@ -2,29 +2,12 @@
 <html>
 <head>
 	<title>Suresh and Ramesh</title>
-	
-	<style>
-		.mute{
-			background:url('images/mute2.png');
-			background-position:10px 0px;
-		}
-		.play{
-			background:url('images/mute2.png');
-			background-position:60px 0px;
-		}
-	</style>
-	
-	
-	<script>
-		// this sets the namespace for CreateJS to the window object, so you can instantiate objects without specifying 
-		// the namespace: "new Graphics()" instead of "new createjs.Graphics()"
-		// this is a quick way to make projects built on pervious versions of EaselJS run without extensive modifications
-		//var createjs = window;
-	</script>
+	<link rel="stylesheet" type="text/css" href="css/mystyle.css">
+	<script src = 'js/jquery.js'></script>
+	<script src = 'js/myscript.js'></script>
 	<script src = 'js/easeljs-0.5.0.min.js'></script>
 	<script src=  'js/preloadjs-0.2.0.min.js'></script>
 	<script src=  'js/soundjs-0.3.0.min.js'></script>
-	<script src = 'js/jquery.js'></script>
 	<script src = 'js/Player.js'></script>
 	<script src = 'js/LevelManager.js'></script>
 	<script src = 'js/GameManager.js'></script>
@@ -32,199 +15,23 @@
 	<script src = 'js/GameStateEnum.js'></script>
 	<script src = 'js/NotificationManager.js'></script>
 	<script src = 'js/SoundManager.js'></script>
-	
-	<script type="text/javascript">
-/*	
-		function init(){
-			var item = {src:"garden.mp3", id:"music"};
-			queue = new createjs.PreloadJS();
-			queue.installPlugin(createjs.SoundJS); // Plug in SoundJS to handle browser-specific paths
-			queue.onComplete = function(){createjs.SoundJS.play("music");};
-			queue.onFileError = function(){alert('err')};
-			queue.onProgress = function(){alert('prog')};
-			queue.loadFile(item, true);
-		}
-		
-*/		
-	var	stage , timeStage , notificationStage, suresh , sureshShock ;
-	var gameManager,notificationManager, resourceManager ,soundManager;
-	
-	this.sr = this.sr ||{};
-	function blockScreen(){
-		
-		var loader = $(".loading")
-		loader.width($(window).width());
-		loader.height($(window).height());
-		var leftDiff = $(window).width()/2 -150;
-		loader.css("background-position", leftDiff+"px"+" 50px");
-		$("#playbt").css("left", leftDiff+110 +"px")
-		$("#playbt").css("top", 180 +"px")
-	}
-	function showScreen(){
-		var loader = $(".loading")
-		loader.hide();
-		$(".canvasHolder").css("display","block");
-	}
-	function initLoading(){
-		blockScreen();
-	
-		manifest = [
-				{src:"images/ramesh.png", id:"img_player",type:createjs.PreloadJS.IMAGE},
-				{src:"images/brick.png", id:"img_path"},
-				{src:"images/start.png" , id:"img_spawn"},
-				{src:"sound/GameBG.mp3", id:"sound_bk"},
-				{src:"sound/shock.mp3", id:"sound_shock"},
-				{src:"sound/click.mp3", id:"sound_click"},
-				{src:"sound/won.mp3", id:"sound_win"},
-				{src:"sound/gameover.mp3", id:"sound_gameover"}
-			];
-		resourceManager = new createjs.PreloadJS(false);
-		resourceManager.installPlugin(createjs.SoundJS)
-		resourceManager.onProgress = handleProgress;
-		resourceManager.onComplete = showPlayButton;
-		resourceManager.onFileLoad = handleFileLoad;
-		resourceManager.loadManifest(manifest);
-	}
-	function handleProgress(){}
-	function handleFileLoad(x){console.log(x);}
-	function showPlayButton(){
-		$("#loadImg").hide();
-		$("#playBtn").css("display","block");
-		$("#playBtn").click(function(){
-			startGame();
-		});
-	}
-	function startGame(){
-		showScreen()
-		soundManager = new sr.SoundManager()
-		
-		$("#music").click(function(){
-			$(this).toggleClass("mute")
-			$(this).toggleClass("play");
-			soundManager.toggleMute();
-		});
-		
-		sr.pressedKeys = []
-		$(document).keydown(function(e){
-			sr.pressedKeys[e.which]=true;
-		});
-		$(document).keyup(function(e){
-			sr.pressedKeys[e.which]=false;
-		});
-		$(document).keypress(function(e){
-			if(e.which==32){
-				if(gameManager.gameState==sr.GameStateEnum.paused){
-					gameManager.gameState=sr.GameStateEnum.running;
-				}else if(gameManager.gameState==sr.GameStateEnum.running){
-					gameManager.gameState=sr.GameStateEnum.paused;
-				}
-			}
-		});
-	
-		createjs.Ticker.setFPS(20);
-		createjs.Ticker.addListener(window);
-		var canvas = document.getElementById("testCanvas");
-		stage= new createjs.Stage(canvas);
-		notificationStage = new createjs.Stage(canvas);
-		var timeCanvas = document.getElementById("timeCanvas");
-		timeStage = new createjs.Stage(timeCanvas);
-		
-		gameManager = new sr.GameManager(stage,timeStage);
-		notificationManager = new sr.NotificationManager(notificationStage,gameManager)
-		gameManager.start();
-		
-		
-		
-		//suresh = new sr.Player("images/sureshFull.png",stage,{UP: 38,DOWN: 40,LEFT:37,RIGHT:39});
-		//ramesh = new sr.Player("images/sureshFull.png",stage,{UP: 87,DOWN: 83,LEFT:65,RIGHT:68});
-	
-	/*
-		suresh.gotoAndPlay("right-walk");
-		ramesh.gotoAndPlay("right-walk");
-		suresh.reached=false;
-		ramesh.x= 100;
-		ramesh.y = 200;
-		suresh.x = 100;
-		suresh.y = 350;
-		suresh.scaleX=suresh.scaleY=0.5;
-		*/
-		//stage.addChild(sureshShock);
-		
-		//var context = document.getElementById("testCanvas2").getContext("2d");
-		var image = new Image();
-
-		
-		   
-		   
-	   
-		function drawPattern() {
-		var g = new createjs.Graphics().beginStroke().beginBitmapFill(image).moveTo(0,0)
-		g.lineTo(300,0)
-		g.lineTo(40,105)
-		g.lineTo(20,105);
-		g.endStroke()
-		var s = new createjs.Shape(g)
-			stage.addChild(s)
-			/*
-			context.beginPath();
-			context.moveTo(0,0);
-			context.lineTo(300,0);
-			context.lineTo(0,105);
-
-			//context.fillStyle="red"    
-		   
-			
-			context.fillStyle = context.createPattern(image, "repeat");
-			context.fill();
-		//	context.fillRect(0, 0, 300, 300);
-		*/
-		}
-
-		image.src = "images/pattern.png";
-		//image.onload = drawPattern;
-	}
-	function tick(){
-		console.log(gameManager.gameState );
-		if( gameManager.gameState != sr.GameStateEnum.paused && 
-			gameManager.gameState != sr.GameStateEnum.over &&
-			gameManager.gameState != sr.GameStateEnum.won &&
-			gameManager.gameState != sr.GameStateEnum.lastLevelWon
-			){
-			gameManager.update();
-			/*
-			if(suresh.x>800 && !suresh.reached){
-				suresh.gotoAndPlay("right-shock");
-				suresh.reached=true
-			}else{
-				if(!suresh.reached)
-					suresh.x=suresh.x+7;
-			}*/
-			stage.update();
-			timeStage.update();
-		}else{
-			
-			notificationManager.update();
-		}
-	}
-	
-	</script>
 </head>
 <body onload="initLoading();">
 
-	<div class="loading" style="background-color:black; position:absolute; left: 0 , right :0 ,z-index:1000; background:url('images/cover.png') #7DFFF7 no-repeat">
-			<div id="playbt" style="position:absolute; ">
-				<div id="loadImg" style="background:url('images/ajax-loader.gif') ; width:55px ;height:54px" >
+	<div class="loading" style="">
+			<div id="playbt" style="">
+				<div id="loadImg" style="" >
 				</div>
-				<div id="playBtn" style="display:none;">
-					<input type="button" style="background-color:red; color:white; padding:4px 20px; font-size:20px;cursor:pointer" value="Play"> 
+				<div id="playBtnContainer" style="">
+					<input type="button" id="playBtn" style="" value="Play"> 
 				</div>
 			</div>
 	</div>
 
 	<div class="canvasHolder" style="display:none;" >
-		<canvas id="timeCanvas" width="100" height="200" style="background:url('images/bomb.png'); margin-right: 40px; float:left;"></canvas>
-		<canvas id="testCanvas" width="900" height="600" style="background:url('images/waves.jpg');float:left;"  ></canvas>
-		<div id="music" style="width:50px; height:45px; float:left; cursor:pointer" class="play">
+		<canvas id="timeCanvas" width="100" height="200" style=""></canvas>
+		<canvas id="testCanvas" width="900" height="600" style=""  ></canvas>
+		<div id="music" style="" class="play">
 		</div>
 	</div>
 
