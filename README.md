@@ -7,7 +7,7 @@ This is simple html5 canvas based game. This game will define twist your brain h
 
 HOW TO PLAY
 ========================
- Controls : suresh  a,s,d,w  and ramesh up , down , right , left arrow.
+ Controls : suresh  a,s,d,w  and ramesh up , down , right , left arrow keys. Pause and resume with space key.
  
 RULE
 ==========
