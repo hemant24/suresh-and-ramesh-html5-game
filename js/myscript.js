@@ -28,7 +28,7 @@ function blockScreen(){
 	loader.height($(window).height());
 	var leftDiff = $(window).width()/2 -150;
 	loader.css("background-position", leftDiff+"px"+" 50px");
-	$("#playbt").css("left", leftDiff+110 +"px")
+	$("#playbt").css("left", leftDiff+40 +"px")
 	$("#playbt").css("top", 180 +"px")
 }
 function showScreen(){
@@ -61,9 +61,31 @@ function handleFileLoad(x){}
 function showPlayButton(){
 	$("#loadImg").hide();
 	$("#playBtnContainer").css("display","block");
-	$("#playBtnContainer").click(function(){
+	$("#playBtn").click(function(){
 		startGame();
+	});	
+	$("#howToPlayBtn").click(showHowToPlay)
+	$(".rslides").responsiveSlides({
+		auto: false,
+        pager: false,
+        nav: true,
+        speed: 500,
+        maxwidth: 800,
+        namespace: "large-btns"
 	});
+}
+
+function showHowToPlay(){
+	$("#mask").click(function(){
+		$(this).hide()
+		$("#howToPlay").hide()
+	})
+	$("#mask").width($(window).width());
+	$("#mask").height($(window).height());
+	$("#mask").show();
+	$("#howToPlay").css("left" , "400px");
+	$("#howToPlay").css("top" , "60px");
+	$("#howToPlay").show();
 }
 function startGame(){
 	showScreen()
@@ -89,6 +111,20 @@ function startGame(){
 			}else if(gameManager.gameState==sr.GameStateEnum.running){
 				gameManager.gameState=sr.GameStateEnum.paused;
 			}
+		}if(e.which == 13 || e.which == 32){
+			if(gameManager.gameState == sr.GameStateEnum.over){
+				if(notificationManager){
+						notificationManager.gameManager.restartLevel()
+				}
+			}else if (gameManager.gameState == sr.GameStateEnum.won){
+				if(notificationManager){
+						notificationManager.gameManager.nextLevel()
+				}
+			}else if (gameManager.gameState == sr.GameStateEnum.lastLevelWon){
+				if(notificationManager){
+						notificationManager.gameManager.start()
+				}
+			}
 		}
 	});
 
@@ -108,7 +144,7 @@ function startGame(){
 
 }
 function tick(){
-	//console.log(gameManager.gameState );
+	console.log(gameManager.gameState );
 	if( gameManager.gameState != sr.GameStateEnum.paused && 
 		gameManager.gameState != sr.GameStateEnum.over &&
 		gameManager.gameState != sr.GameStateEnum.won &&

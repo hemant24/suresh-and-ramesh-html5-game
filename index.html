@@ -15,16 +15,28 @@
 	<script src = 'js/GameStateEnum.js'></script>
 	<script src = 'js/NotificationManager.js'></script>
 	<script src = 'js/SoundManager.js'></script>
+	<script src = 'js/responsiveslides.min.js'></script>
 </head>
 <body onload="initLoading();">
-
+	<div id="mask" >
+	</div>
+	<div id = "howToPlay" style="display:none;">
+		<ul class="rslides">
+		  <li><img src="images/howtoplay1.jpg" alt=""></li>
+		  <li><img src="images/howtoplay2.jpg" alt=""></li>
+		  <li><img src="images/howtoplay3.jpg" alt=""></li>
+		</ul>
+	</div>
+	
 	<div class="loading" style="">
 			<div id="playbt" style="">
 				<div id="loadImg" style="" >
 				</div>
 				<div id="playBtnContainer" style="">
-					<input type="button" id="playBtn" style="" value="Play"> 
+					<input type="button" class = "playBtn" id="playBtn" style="" value="Play"> 
+					<input type="button" class = "playBtn" id="howToPlayBtn" style="" value="How to Play"> 
 				</div>
+				
 			</div>
 	</div>
 
