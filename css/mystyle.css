@@ -1,3 +1,7 @@
+		* {
+			margin: 0;
+			padding: 0;
+		}
 		.mute{
 			background:url('../images/mute2.png');
 			background-position:10px 0px;
@@ -34,7 +38,7 @@
 			width:50px; height:45px; float:left; cursor:pointer
 		}
 		#mask {
-			background-color:black; z-index :12 ; position : absolute ; left : 0; top : 0; opacity : 0.8
+			background-color:black; z-index :12 ; position : absolute ; left : 0; top : 0; opacity : 0.8; display:none;
 		}
 		#howToPlay{
 			position : absolute ; left : 0; z-index :14 ;

@@ -77,15 +77,15 @@ function showPlayButton(){
 
 function showHowToPlay(){
 	$("#mask").click(function(){
-		$(this).hide()
-		$("#howToPlay").hide()
+		$(this).fadeOut(300)
+		$("#howToPlay").fadeOut(300)
 	})
 	$("#mask").width($(window).width());
 	$("#mask").height($(window).height());
-	$("#mask").show();
-	$("#howToPlay").css("left" , "400px");
+	$("#mask").fadeIn(500);
+	$("#howToPlay").css("left" , ($(window).width()/2 - 400)+ "px");
 	$("#howToPlay").css("top" , "60px");
-	$("#howToPlay").show();
+	$("#howToPlay").fadeIn(500);
 }
 function startGame(){
 	showScreen()
