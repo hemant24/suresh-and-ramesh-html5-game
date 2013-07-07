@@ -37,13 +37,18 @@
 		#music{
 			width:50px; height:45px; float:left; cursor:pointer
 		}
+		#restartLevel{
+			width:50px; height:45px; float:left; cursor:pointer; top: 50px; position: relative; left: -46px; background:url('../images/restart.jpg');
+		}
 		#mask {
 			background-color:black; z-index :12 ; position : absolute ; left : 0; top : 0; opacity : 0.8; display:none;
 		}
 		#howToPlay{
 			position : absolute ; left : 0; z-index :14 ;
 		}
-		
+		#levelInfo {
+			float:left; position : absolute; top : 220px ; font-size : 25px; font-weight: bold;
+		}
 		
 		.rslides {
 		  position: relative;

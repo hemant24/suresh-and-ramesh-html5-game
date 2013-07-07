@@ -67,11 +67,11 @@ function showPlayButton(){
 	$("#howToPlayBtn").click(showHowToPlay)
 	$(".rslides").responsiveSlides({
 		auto: false,
-        pager: false,
+        pager: true,
         nav: true,
         speed: 500,
         maxwidth: 800,
-        namespace: "large-btns"
+        namespace: "centered-btns"
 	});
 }
 
@@ -96,6 +96,12 @@ function startGame(){
 		$(this).toggleClass("play");
 		soundManager.toggleMute();
 	});
+	
+	$("#restartLevel").click(function(){
+		if(notificationManager){
+						notificationManager.gameManager.restartLevel()
+				}
+	})
 	
 	sr.pressedKeys = []
 	$(document).keydown(function(e){

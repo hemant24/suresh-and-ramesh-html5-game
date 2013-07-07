@@ -167,7 +167,7 @@ p.loadNextLevel = function (level){
 			this.currentLevel = 1;
 		}
 	}
-
+	$("#levelDisplay").text(this.currentLevel + "/" + levels.length)
 	var levelIndex = this.currentLevel -1;
 	this.time = levels[levelIndex].time;
 	for(x in levels[levelIndex].walls ){	
