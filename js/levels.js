@@ -23,12 +23,12 @@ var levels=[
 
  
  { walls:[{"x":72,"y":81,"height":11,"width":525},{"x":597,"y":82,"height":318,"width":11},{"x":601,"y":395,"height":11,"width":241},{"x":840,"y":395,"height":120,"width":11},{"x":480,"y":512,"height":11,"width":360},{"x":470,"y":232,"height":280,"width":11},{"x":75,"y":229,"height":11,"width":395},{"x":75,"y":89,"height":140,"width":11}]
- ,  playerPosition :[{"x":112,"y":134,"height":50,"width":50},{"x":760,"y":438,"height":50,"width":50}],time:12} ,
+ ,  playerPosition :[{"x":112,"y":134,"height":50,"width":50},{"x":760,"y":438,"height":50,"width":50}],time:15} ,
 
   //level 2
 
 { walls:[{"x":98,"y":100,"height":283,"width":11},{"x":100,"y":383,"height":11,"width":233},{"x":333,"y":384,"height":147,"width":11},{"x":339,"y":528,"height":11,"width":530},{"x":858,"y":306,"height":222,"width":11},{"x":680,"y":303,"height":11,"width":178},{"x":677,"y":303,"height":108,"width":11},{"x":472,"y":402,"height":11,"width":205},{"x":472,"y":126,"height":276,"width":11},{"x":320,"y":126,"height":11,"width":162},{"x":319,"y":133,"height":135,"width":11},{"x":221,"y":265,"height":11,"width":98},{"x":220,"y":101,"height":164,"width":11},{"x":108,"y":101,"height":11,"width":112}]
- ,  playerPosition :[{"x":130,"y":143,"height":50,"width":50},{"x":743,"y":357,"height":50,"width":50}],time:15} ,
+ ,  playerPosition :[{"x":130,"y":143,"height":50,"width":50},{"x":743,"y":357,"height":50,"width":50}],time:20} ,
 
   //level 3
  { walls:[{"x":77,"y":68,"height":11,"width":172},{"x":249,"y":79,"height":120,"width":11},{"x":134,"y":198,"height":11,"width":116},{"x":134,"y":198,"height":120,"width":11},{"x":135,"y":318,"height":11,"width":375},{"x":510,"y":333,"height":0,"width":0},{"x":510,"y":322,"height":167,"width":11},{"x":510,"y":482,"height":11,"width":210},{"x":712,"y":278,"height":204,"width":11},{"x":712,"y":278,"height":11,"width":170},{"x":882,"y":278,"height":158,"width":11},{"x":827,"y":434,"height":11,"width":55},{"x":827,"y":434,"height":144,"width":11},{"x":483,"y":572,"height":11,"width":344},{"x":378,"y":572,"height":11,"width":105},{"x":368,"y":419,"height":163,"width":11},{"x":55,"y":412,"height":11,"width":313},{"x":45,"y":72,"height":340,"width":11},{"x":45,"y":72,"height":11,"width":33}]
@@ -63,7 +63,7 @@ var levels=[
  
  //level 8
  { walls:[{"x":49,"y":210,"height":11,"width":143},{"x":192,"y":71,"height":139,"width":11},{"x":192,"y":71,"height":11,"width":208},{"x":400,"y":74,"height":207,"width":11},{"x":401,"y":280,"height":11,"width":182},{"x":573,"y":88,"height":192,"width":11},{"x":573,"y":88,"height":11,"width":185},{"x":758,"y":89,"height":317,"width":11},{"x":763,"y":404,"height":11,"width":115},{"x":878,"y":404,"height":91,"width":11},{"x":663,"y":495,"height":11,"width":215},{"x":659,"y":256,"height":246,"width":11},{"x":629,"y":254,"height":11,"width":30},{"x":622,"y":254,"height":116,"width":11},{"x":357,"y":368,"height":11,"width":265},{"x":314,"y":368,"height":11,"width":43},{"x":311,"y":193,"height":176,"width":11},{"x":265,"y":191,"height":11,"width":46},{"x":261,"y":191,"height":111,"width":11},{"x":51,"y":299,"height":11,"width":210},{"x":51,"y":219,"height":80,"width":11}] 
- ,  playerPosition :[{"x":84,"y":247,"height":50,"width":50},{"x":794,"y":437,"height":50,"width":50}],time:40} ,
+ ,  playerPosition :[{"x":84,"y":247,"height":50,"width":50},{"x":794,"y":437,"height":50,"width":50}],time:30} ,
  
  
  //level 9

@@ -20,7 +20,7 @@
 			position:absolute; 
 		}
 		#loadImg {
-			background:url('../images/ajax-loader.gif') ; width:55px ;height:54px
+			background:url('../images/ajax-loader.gif') ; width:55px ;height:54px; position : relative ; left : 75px
 		}
 		#playBtnContainer{
 			display:none;
