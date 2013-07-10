@@ -23,7 +23,7 @@ var levels=[
 
  
  { walls:[{"x":72,"y":81,"height":11,"width":525},{"x":597,"y":82,"height":318,"width":11},{"x":601,"y":395,"height":11,"width":241},{"x":840,"y":395,"height":120,"width":11},{"x":480,"y":512,"height":11,"width":360},{"x":470,"y":232,"height":280,"width":11},{"x":75,"y":229,"height":11,"width":395},{"x":75,"y":89,"height":140,"width":11}]
- ,  playerPosition :[{"x":112,"y":134,"height":50,"width":50},{"x":760,"y":438,"height":50,"width":50}],time:15} ,
+ ,  playerPosition :[{"x":112,"y":134,"height":50,"width":50},{"x":760,"y":438,"height":50,"width":50}],time:20} ,
 
   //level 2
 

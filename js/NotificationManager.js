@@ -105,7 +105,7 @@ p.initLastLevelWon = function(){
 		gameFinishedTxt.textBaseline = "top";
 		this.lastLevelWon.addChild(gameFinishedTxt);
 		
-		var creaditTxt = new createjs.Text("Created By Hemant Sachdeva", "36px Arial", "#000");
+		var creaditTxt = new createjs.Text("Thanks For Playing", "36px Arial", "#000");
 		creaditTxt.textBaseline = "top";
 		creaditTxt.y=70
 		this.lastLevelWon.addChild(creaditTxt);	
