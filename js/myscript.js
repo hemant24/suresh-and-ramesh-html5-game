@@ -76,8 +76,8 @@ function showPlayButton(){
 }
 
 function showHowToPlay(){
-	$("#mask").click(function(){
-		$(this).fadeOut(300)
+	$("#mask , #howToPlayClose").click(function(){
+		$("#mask").fadeOut(300)
 		$("#howToPlay").fadeOut(300)
 	})
 	$("#mask").width($(window).width());
