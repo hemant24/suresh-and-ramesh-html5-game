@@ -27,19 +27,52 @@ var NotificationManager = function(notificationStage, gameManager){
 	this.initNextLevel();
 	this.initGameFinished();
 	this.initLastLevelWon();
-	
+	this.handleButtonNavigation("#pauseScreen");
 }
 var p = NotificationManager.prototype ;
 
+var continueGame = function(){
+	gameManager.gameState = sr.GameStateEnum.running
+	notificationManager.showScreen("#gameScreen")				
+}
+var restartGame = function(){
+	gameManager.restartLevel()
+	notificationManager.showScreen("#gameScreen")
+}
+var mainMenu = function(){
+	gameManager.gameState = sr.GameStateEnum.paused
+	gameManager.stop()
+	notificationManager.showScreen("#mainScreen")				
+}
+var nextLevel = function(){
+	gameManager.nextLevel(); 
+	notificationManager.showScreen("#gameScreen")
+}
+
+var lastLevel = function(){
+	gameManager.start();
+	notificationManager.showScreen("#gameScreen")
+}
+
 p.initPause = function(){
+	$("#psContinue").click( continueGame )
+	$("#menu , #psMainMenu").click(mainMenu)
+	$("#psRestart").click(restartGame)
+	
+	/*
 	this.pause = new createjs.Text("Paused", "76px Arial", "#000");
 	this.pause.x =	200
 	this.pause.y =	200
 	this.pause.visible = false
 	this.notificationStage.addChild(this.pause)
+	*/
 }
 
 p.initGameOver = function(){
+$("#gosRestart").click( restartGame )
+$("#gosMainMenu").click(mainMenu)
+
+/*
 this.gameOver=  new createjs.Container();
 		 
 	var bk = new createjs.Shape();
@@ -61,9 +94,12 @@ this.gameOver=  new createjs.Container();
 	this.gameOver.x = 200
 	this.gameOver.y = 200
 	this.notificationStage.addChild(this.gameOver);
-
+*/
 }
+
 p.initNextLevel = function(){
+$("#lwNextLevel").click(nextLevel);
+/*
 	this.nextLevel=  new createjs.Container();
 		 
 	var bk = new createjs.Shape();
@@ -82,13 +118,43 @@ p.initNextLevel = function(){
 	this.nextLevel.x = 200
 	this.nextLevel.y = 200
 	this.notificationStage.addChild(this.nextLevel);
+*/
 }
+
+p.handleButtonNavigation = function(keyPress){
+	console.log(keyPress)
+	buttonHolder = $(".screen.activeScreen");
+	var activeButton = buttonHolder.find(".button.active");
+	if(keyPress == 40){
+		if(activeButton.next() && activeButton.next().hasClass("button")){
+			activeButton.removeClass("active");
+			activeButton.next().addClass("active");
+		}else{
+			activeButton.removeClass("active");
+			buttonHolder.find(".button:first-child").addClass("active")
+		}
+	}
+	if(keyPress == 38){
+		if(activeButton.prev() && activeButton.prev().hasClass("button")){
+			activeButton.removeClass("active");
+			activeButton.prev().addClass("active");
+		}else{
+			activeButton.removeClass("active");
+			buttonHolder.find(".button:last-child").addClass("active")
+		}
+	}
+	if(keyPress == 13){
+		activeButton.click()
+	}
+}
+
+
 p.initGameFinished = function(){
 
 }
 p.initLastLevelWon = function(){
-		
-		
+	$("#llwRestartGame").click(lastLevel);
+	/*
 	this.lastLevelWon=  new createjs.Container();
 		 
 	var bk = new createjs.Shape();
@@ -126,23 +192,45 @@ p.initLastLevelWon = function(){
 }
 
 p.resetAll = function(){
-	this.pause.visible = false
-	this.gameOver.visible =false 
-	this.nextLevel.visible = false;
-	this.lastLevelWon.visible = false;
+	//this.pause.visible = false
+	//this.gameOver.visible =false 
+	//this.nextLevel.visible = false;
+	//this.lastLevelWon.visible = false;
+}
+p.showScreen = function showScreen(id){
+	$(".screen").each(function(){
+		$(this).hide()
+		$(this).removeClass("activeScreen")
+	})
+	$(id).show()
+	$(id).addClass("activeScreen")
 }
 
 p.showPaused = function(){
-	this.pause.visible  = true;
+	this.showScreen("#pauseScreen")
+	//this.pause.visible  = true;
 }
 p.showGameOver =function(){
-	this.gameOver.visible =true;
+	this.showScreen("#gameOverScreen")
+	//this.gameOver.visible =true;
 }
 p.showNextLevel =function(){
-	this.nextLevel.visible = true;
+	this.showScreen("#levelWonScreen")
+	//this.nextLevel.visible = true;
 }
 p.showLastLevelWon = function(){
-	this.lastLevelWon.visible = true;
+	//this.lastLevelWon.visible = true;
+	this.showScreen("#lastLevelWonScreen")
+}
+p.showGame = function(){
+	this.showScreen("#gameScreen")
+}
+p.showHowToPlay = function(){
+	this.showScreen("#howToPlayScreen")
+}
+
+p.showMenu = function(){
+	this.showScreen("#mainScreen")
 }
 
 p.update = function(){
@@ -160,8 +248,12 @@ p.update = function(){
 		case sr.GameStateEnum.lastLevelWon:
 			this.showLastLevelWon();
 		break;
+		case sr.GameStateEnum.running : 
+			this.showGame();
+		break;
 	}
 	this.notificationStage.update();
+	
 }
 
 

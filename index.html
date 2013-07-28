@@ -2,7 +2,8 @@
 <html>
 <head>
 	<title>Suresh and Ramesh</title>
-	<link rel="stylesheet" type="text/css" href="css/mystyle.css">
+	<link rel="stylesheet" type="text/css" href="csss/mystyle.css">
+	<link rel="stylesheet" type="text/css" href="css/responsive.css">
 	<script src = 'js/jquery.js'></script>
 	<script src = 'js/myscript.js'></script>
 	<script src = 'js/easeljs-0.5.0.min.js'></script>
@@ -16,39 +17,101 @@
 	<script src = 'js/NotificationManager.js'></script>
 	<script src = 'js/SoundManager.js'></script>
 	<script src = 'js/responsiveslides.min.js'></script>
+	<style type="text/css">
+		* { margin: 0;padding: 0;}
+		.standardWidthHeight {  width : 900px ; height : 600px ;}
+		.canvasHolder { margin: auto; top : 100px; position : relative ;}
+		.testBorder {border : 1px black solid ;}
+		.mainCanvas {border : 6px #FF7F2A solid ; box-shadow: 0px 0px 25px #888888;-webkit-border-radius: 15px; -moz-border-radius: 15px; border-radius: 15px; background:url('images/waves.jpg')}  /* change it to ../images/mute2.png  */
+		.posAbs { position : absolute;}
+		.timeCanvas {top: -60px; }
+		.top0 { top : 0px;}
+		.music {right : 180px; background:url('images/mute2.png'); cursor : pointer ; height : 45px; width : 45px} /* change it to ../images/mute2.png  */
+		.play{ background-position:60px 0px;}
+		.restartLevel {right : 60px ; background:url(images/restart.jpg) ; height : 45px; width : 45px; cursor : pointer } /* change it to ../images/mute2.png  */
+		.menu {right : 0px; height : 45px; width : 45px; cursor : pointer}
+		.levels {font-size : 40px; font-weight : bold ; left : 10px ; top: 5px}
+		.standardAdjust { top : 6px ; left : 6px; border-radius: 15px;}
+		.button { width : 190px; height : 35px ; display: block; position : relative; cursor : pointer ; background:url('images/button.png') ; padding-bottom : 10px;}
+		.button:hover , .button.active { box-shadow: 0px 0px 25px yellow;}
+		.marginAuto { margin : auto ;}
+		.mainScreen { background-color : #7DFFF7 }
+		.mainScreenImage { background:url('images/cover.png') no-repeat ; width : 300px ; height : 600px }
+		.mainScreenComponent { top:200px;position:relative ;}
+		.hide { display :none ; }
+		.loadImg {background:url('images/ajax-loader.gif')  no-repeat  ; width:55px ;height:54px;}
+		#mask{ background-color:black; z-index :12 ; position : absolute ; left : 0; top : 0; opacity : 0.8; display:none;}
+	</style>
 </head>
-<body onload="initLoading();">
+<body>
 	<div id="mask" >
 	</div>
-	<div id = "howToPlay" style="display:none;">
-		<span class="top-right-btns_nav" id ="howToPlayClose" > </span>
-		<ul class="rslides">
-		  <li><img src="images/howtoplay1.jpg" alt=""></li>
-		  <li><img src="images/howtoplay2.jpg" alt=""></li>
-		  <li><img src="images/howtoplay3.jpg" alt=""></li>
-		  <li><img src="images/howtoplay4.jpg" alt=""></li>
-		</ul>
-	</div>
 	
-	<div class="loading" style="">
-			<div id="playbt" style="">
-				<div id="loadImg" style="" >
-				</div>
-				<div id="playBtnContainer" style="">
-					<input type="button" class = "playBtn" id="playBtn" style="" value="Play"> 
-					<input type="button" class = "playBtn" id="howToPlayBtn" style="" value="How to Play"> 
-				</div>
-				
-			</div>
-	</div>
-
-	<div class="canvasHolder" style="display:none;" >
-		<canvas id="timeCanvas" width="100" height="200" style=""></canvas>
-		<div id="levelInfo" style="" >Level : <span id="levelDisplay"> </span></div>
-		<canvas id="testCanvas" width="900" height="600" style=""  ></canvas>
-		<div id="music" style="" class="play"></div>
-		<div id="restartLevel" > </div>
+	
+	
+	<div class="canvasHolder standardWidthHeight" >
+		<!-- Game screen -->
+		<div class="screen hide" id="gameScreen">
+			<canvas id="timeCanvas"  width="900" height="50" class = "testBorder posAbs timeCanvas" ></canvas>
+			<canvas id="testCanvas" width="900" height="600" class = "mainCanvas" ></canvas>
+			<div id="levelInfo" class=" posAbs top0 levels" > <span id="levelDisplay"> </span></div>
+			<div id="music" style="" class="play testBorder posAbs top0 music"></div>
+			<div id="restartLevel" class = "testBorder posAbs top0 restartLevel"></div>
+			<div id="menu" class = "testBorder posAbs top0 menu"> MENU </div>
 		</div>
+		<!-- Game Over screen -->
+		<div class=" screen hide gameOverScreen testBorder standardAdjust standardWidthHeight posAbs top0" id="gameOverScreen" >
+			<span class ="button testBorder marginAuto active" id="gosRestart"> restart </span>
+			<span class ="button testBorder marginAuto" id="gosMainMenu"> main menu </span>
+		</div>
+		<!-- Level won screen -->
+		<div class=" screen hide levelWonScreen testBorder standardAdjust standardWidthHeight posAbs top0" id="levelWonScreen" >
+			<span class ="button testBorder marginAuto active" id="lwNextLevel"> next Level </span>
+		</div>
+		
+		<!-- Last Level won screen -->
+		<div class=" screen hide  levelWonScreen testBorder standardAdjust standardWidthHeight posAbs top0" id="lastLevelWonScreen" >
+			<div > <p> Game Finished Thanks for playing</div>
+			<span class ="button testBorder marginAuto active" id="llwRestartGame"> Restart Game </span>
+		</div>
+		
+		<!-- Pause screen -->
+		<div class=" screen hide pauseScreen testBorder standardAdjust standardWidthHeight posAbs top0" id="pauseScreen" >
+			<span class ="button testBorder marginAuto active" id="psContinue"> continue </span>
+			<span class ="button testBorder marginAuto" id="psRestart"> restart </span>
+			<span class ="button testBorder marginAuto" id="psMainMenu"> main menu </span>
+		</div>
+		
+		<!-- Level selection screen -->
+		<div class=" screen hide levelScreen testBorder standardAdjust standardWidthHeight posAbs top0" >
+			level selection screen
+		</div>
+		
+		<!-- Main Screen -->
+		<div class=" screen  mainScreen testBorder standardAdjust standardWidthHeight posAbs top0" id="mainScreen" >
+			<div class="mainScreenImage marginAuto" > 
+				<div id="loadImg" class="loadImg marginAuto mainScreenComponent" >
+				</div>
+				<div id="playBtnContainer" class = "mainScreenComponent" style="display:none;">
+					<input type="button" class = "playBtn button marginAuto" id="playBtn" style="" value="Play"> 
+					<input type="button" class = "playBtn button marginAuto" id="howToPlayBtn" style="" value="How to Play"> 
+					<input type="button" class = "playBtn button marginAuto" id="levelSelectBtn" style="" value="Level Select"> 
+				</div>
+			</div>
+		</div>
+		
+		<!-- How to play Screen -->
+		<div id ="howToPlayScreen" class="screen hide howToPlay testBorder standardAdjust standardWidthHeight posAbs top0" >
+			<span class="top-right-btns_nav" id ="howToPlayClose" > </span>
+			<ul class="rslides">
+			  <li><img src="images/howtoplay1.jpg" alt=""></li>
+			  <li><img src="images/howtoplay2.jpg" alt=""></li>
+			  <li><img src="images/howtoplay3.jpg" alt=""></li>
+			  <li><img src="images/howtoplay4.jpg" alt=""></li>
+			</ul>
+		</div>
+		
+	</div>
 	</div>
 
 </body>

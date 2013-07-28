@@ -21,7 +21,8 @@ this.sr = this.sr ||{};
 
 var SoundManager = function(){
 	this.isMute = false;
-	this.bkMusic = createjs.SoundJS.play("sound_bk",null,0,0,-1) //loop for one round, again start in next round
+	this.htmlAudioPlugin = new createjs.HTMLAudioPlugin( )
+	this.bkMusic = this.htmlAudioPlugin.create(createjs.SoundJS.getSrcFromId("sound_bk"))//createjs.SoundJS.play("sound_bk",null,0,0,-1) //loop for one round, again start in next round
 	this.shock = null;
 	this.click = null;
 	this.mute = false;
@@ -39,9 +40,17 @@ p.mute = function(){
 }
 
 p.playBk = function(){
+this.bkMusic.mute(false)
+	this.bkMusic.play(null,0,0,-1)
+	/*
 	if(!this.mute){
 			this.bkMusic.mute(false) 
 		}
+	*/
+}
+
+p.stopBk = function(){
+	this.bkMusic.stop()
 }
 
 p.playClick = function(){

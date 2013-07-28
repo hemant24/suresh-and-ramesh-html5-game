@@ -15,6 +15,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+
+$(document).ready(function(){
+	initLoading();
+})
 var	stage , timeStage , notificationStage, suresh , sureshShock ;
 var gameManager,notificationManager, resourceManager ,soundManager;
 
@@ -31,13 +35,9 @@ function blockScreen(){
 	$("#playbt").css("left", leftDiff+40 +"px")
 	$("#playbt").css("top", 180 +"px")
 }
-function showScreen(){
-	var loader = $(".loading")
-	loader.hide();
-	$(".canvasHolder").css("display","block");
-}
+
 function initLoading(){
-	blockScreen();
+	//blockScreen();
 
 	manifest = [
 			{src:"images/ramesh.png", id:"img_player",type:createjs.PreloadJS.IMAGE},
@@ -61,35 +61,10 @@ function handleFileLoad(x){}
 function showPlayButton(){
 	$("#loadImg").hide();
 	$("#playBtnContainer").css("display","block");
+	
 	$("#playBtn").click(function(){
 		startGame();
 	});	
-	$("#howToPlayBtn").click(showHowToPlay)
-	$(".rslides").responsiveSlides({
-		auto: false,
-        pager: true,
-        nav: true,
-        speed: 500,
-        maxwidth: 800,
-        namespace: "centered-btns"
-	});
-}
-
-function showHowToPlay(){
-	$("#mask , #howToPlayClose").click(function(){
-		$("#mask").fadeOut(300)
-		$("#howToPlay").fadeOut(300)
-	})
-	$("#mask").width($(window).width());
-	$("#mask").height($(window).height());
-	$("#mask").fadeIn(500);
-	$("#howToPlay").css("left" , ($(window).width()/2 - 400)+ "px");
-	$("#howToPlay").css("top" , "60px");
-	$("#howToPlay").fadeIn(500);
-}
-function startGame(){
-	showScreen()
-	soundManager = new sr.SoundManager()
 	
 	$("#music").click(function(){
 		$(this).toggleClass("mute")
@@ -103,39 +78,10 @@ function startGame(){
 				}
 	})
 	
-	sr.pressedKeys = []
-	$(document).keydown(function(e){
-		sr.pressedKeys[e.which]=true;
-	});
-	$(document).keyup(function(e){
-		sr.pressedKeys[e.which]=false;
-	});
-	$(document).keypress(function(e){
-		if(e.which==32){
-			if(gameManager.gameState==sr.GameStateEnum.paused){
-				gameManager.gameState=sr.GameStateEnum.running;
-			}else if(gameManager.gameState==sr.GameStateEnum.running){
-				gameManager.gameState=sr.GameStateEnum.paused;
-			}
-		}if(e.which == 13 || e.which == 32){
-			if(gameManager.gameState == sr.GameStateEnum.over){
-				if(notificationManager){
-						notificationManager.gameManager.restartLevel()
-				}
-			}else if (gameManager.gameState == sr.GameStateEnum.won){
-				if(notificationManager){
-						notificationManager.gameManager.nextLevel()
-				}
-			}else if (gameManager.gameState == sr.GameStateEnum.lastLevelWon){
-				if(notificationManager){
-						notificationManager.gameManager.start()
-				}
-			}
-		}
-	});
-
-	createjs.Ticker.setFPS(20);
-	createjs.Ticker.addListener(window);
+	attachKeyboardListner();
+	
+	soundManager = new sr.SoundManager()
+	
 	var canvas = document.getElementById("testCanvas");
 	stage= new createjs.Stage(canvas);
 	notificationStage = new createjs.Stage(canvas);
@@ -144,24 +90,68 @@ function startGame(){
 	
 	gameManager = new sr.GameManager(stage,timeStage);
 	notificationManager = new sr.NotificationManager(notificationStage,gameManager)
+	
+	
+	$("#howToPlayBtn").click(showHowToPlay)
+	$(".rslides").responsiveSlides({
+		auto: false,
+        pager: true,
+        nav: true,
+        speed: 500,
+        maxwidth: 800,
+        namespace: "centered-btns"
+	});
+}
+
+function attachKeyboardListner(){
+	sr.pressedKeys = []
+	$(document).keydown(function(e){
+		sr.pressedKeys[e.which]=true;
+	});
+	$(document).keyup(function(e){
+		if(gameManager.gameState != sr.GameStateEnum.running){
+			notificationManager.handleButtonNavigation(e.which)
+		}
+		sr.pressedKeys[e.which]=false;
+	});
+	$(document).keypress(function(e){
+		if(e.which==32){
+			if(gameManager.gameState==sr.GameStateEnum.running){
+				gameManager.gameState=sr.GameStateEnum.paused;
+			}
+		}
+	});
+}
+
+function showHowToPlay(){
+	$("#mask , #howToPlayClose").click(function(){
+		$("#mask").fadeOut(300)
+		$("#howToPlay").fadeOut(300)
+		notificationManager.showMenu()
+	})
+	notificationManager.showHowToPlay()
+	$("#mask").width($(window).width());
+	$("#mask").height($(window).height());
+	$("#mask").fadeIn(500);
+	$("#howToPlay").css("left" , ($(window).width()/2 - 400)+ "px");
+	$("#howToPlay").css("top" , "60px");
+	$("#howToPlay").fadeIn(500);
+}
+function startGame(){
+	notificationManager.showGame()
+	createjs.Ticker.setFPS(20);
+	createjs.Ticker.addListener(window);
+	soundManager.playBk();
 	gameManager.start();
-	var image = new Image();
-
-
 }
 function tick(){
-	console.log(gameManager.gameState );
-	if( gameManager.gameState != sr.GameStateEnum.paused && 
-		gameManager.gameState != sr.GameStateEnum.over &&
-		gameManager.gameState != sr.GameStateEnum.won &&
-		gameManager.gameState != sr.GameStateEnum.lastLevelWon
-		){
+	console.log(gameManager.gameState)
+	if( gameManager.gameState == sr.GameStateEnum.running){
 		gameManager.update();
 		stage.update();
 		timeStage.update();
 	}else{
-		
-		notificationManager.update();
+			notificationManager.update();
 	}
 }
 
